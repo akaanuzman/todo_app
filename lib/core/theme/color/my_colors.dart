@@ -19,6 +19,7 @@ class MyColors with BaseSingleton {
 
   /// Your Colors
   Color get primaryBoxShadowColor => const Color(0x1a208dfe);
+  Color get facebookColor => const Color(0xff4267B2);
 
   /// Flutter Colors [You can use all flutter colors basicly].
   // White

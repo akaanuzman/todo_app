@@ -1,0 +1,9 @@
+{
+    "loginTitle": "HELLO AGAIN!",
+    "loginSubtitle": "Welcome back, you've been missed!",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "loginButton": "Sign In",
+    "registerText": "Not a member?",
+    "registerButton": "Register now!"
+}

@@ -20,6 +20,7 @@ class MyTheme extends IMyTheme {
         textTheme: MyTexts.instance.textTheme,
         appBarTheme: _appBarTheme,
         snackBarTheme: _snackBarTheme,
+        scaffoldBackgroundColor: colors.grey1,
       );
 
   AppBarTheme get _appBarTheme {

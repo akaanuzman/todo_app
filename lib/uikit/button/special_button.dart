@@ -12,11 +12,12 @@ class SpecialButton extends StatelessWidget {
   final IconData icon;
   final Color? iconColor;
   final double? iconSize;
+  final BorderSide borderSide;
   const SpecialButton({
     super.key,
     this.onTap,
     this.child,
-    this.buttonLabel = "Label",
+    this.buttonLabel = "",
     this.padding,
     this.bgColor,
     this.elevation,
@@ -25,6 +26,7 @@ class SpecialButton extends StatelessWidget {
     this.icon = Icons.abc,
     this.iconColor,
     this.iconSize,
+    this.borderSide = BorderSide.none,
   });
 
   @override
@@ -58,7 +60,10 @@ class SpecialButton extends StatelessWidget {
       padding: padding,
       backgroundColor: bgColor,
       elevation: elevation,
-      shape: RoundedRectangleBorder(borderRadius: borderRadius),
+      shape: RoundedRectangleBorder(
+        borderRadius: borderRadius,
+        side: borderSide,
+      ),
     );
   }
 }
