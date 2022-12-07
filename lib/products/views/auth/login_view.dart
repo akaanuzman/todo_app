@@ -86,10 +86,12 @@ class LoginView extends StatelessWidget with BaseSingleton {
 
   DefaultTextFormField _passwordField(BuildContext context) {
     bool filled = true;
+    bool obscureText = true;
     return DefaultTextFormField(
       context: context,
       filled: filled,
       fillColor: colors.white,
+      obscureText: obscureText,
       prefixIcon: icons.lock,
       labelText: AppLocalizations.of(context)!.passwordLabel,
       keyboardType: context.keyboardVisiblePassword,

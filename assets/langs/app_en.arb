@@ -2,8 +2,18 @@
     "loginTitle": "HELLO AGAIN!",
     "loginSubtitle": "Welcome back, you've been missed!",
     "emailLabel": "Email",
+    "emailHint": "Please enter your email.",
     "passwordLabel": "Password",
+    "passwordHint": "Please enter your password.",
+    "passwordHint2": "Please enter your password again.",
     "loginButton": "Sign In",
     "registerText": "Not a member?",
-    "registerButton": "Register now!"
+    "registerButton": "Register now!",
+    "registerAppBar": "Register",
+    "signUpButton": "Sign Up",
+    "registerTitle": "CREATE ACCOUNT",
+    "registerSubtitle": "Create your account and join with us!",
+    "registerSuccessful": "Register Successful",
+    "registerFailed": "Register Failed",
+    "registerSuccessfulContent": "You registered in successful!"
 }

@@ -26,7 +26,7 @@ class MyTheme extends IMyTheme {
   AppBarTheme get _appBarTheme {
     return AppBarTheme(
         iconTheme: IconThemeData(color: colors.black),
-        color: colors.white,
+        color: colors.transparent,
         elevation: 0,
         titleTextStyle: texts.textTheme.headline6,
       );
