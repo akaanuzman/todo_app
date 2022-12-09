@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/base/base_singleton.dart';
 import '../../../core/extensions/ui_extensions.dart';
 import '../../../uikit/decoration/special_container_decoration.dart';
@@ -17,6 +17,10 @@ class NavbarView extends StatelessWidget with BaseSingleton {
         return Scaffold(
           body: provider.views.elementAt(provider.currentIndex),
           bottomNavigationBar: _navbar(context, provider),
+          floatingActionButton: _fabButton(context),
+          // TODO: Add my core structure
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
         );
       },
     );
@@ -50,6 +54,14 @@ class NavbarView extends StatelessWidget with BaseSingleton {
         currentIndex: provider.currentIndex,
         onTap: (index) => provider.onItemTapped(index),
       ),
+    );
+  }
+
+  FloatingActionButton _fabButton(BuildContext context) {
+    return FloatingActionButton(
+      tooltip: AppLocalizations.of(context)!.addTodo,
+      onPressed: () {},
+      child: icons.addTodo,
     );
   }
 }

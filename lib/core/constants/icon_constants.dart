@@ -20,8 +20,10 @@ class IconConstants {
   Icon get search => const Icon(Icons.search);
   Icon get language => const Icon(Icons.language);
   Icon get place => const Icon(Icons.place);
-  Icon get description=> const Icon(Icons.description);
-
-
-
+  Icon get description => const Icon(Icons.description);
+  Icon get right => const Icon(Icons.chevron_right);
+  Icon get addTodo => const Icon(
+        Icons.post_add,
+        size: 32,
+      );
 }

@@ -15,5 +15,8 @@
     "registerSubtitle": "Create your account and join with us!",
     "registerSuccessful": "Register Successful",
     "registerFailed": "Register Failed",
-    "registerSuccessfulContent": "You registered in successful!"
+    "registerSuccessfulContent": "You registered in successful!",
+    "todosAppBar": "My Todos",
+    "searchTodo": "Search todo",
+    "addTodo": "Add Todo"
 }

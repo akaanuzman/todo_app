@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/products/views/home/todos_view.dart';
 import '../../core/base/base_singleton.dart';
 import '../models/navbar_model.dart';
 
@@ -19,7 +20,7 @@ class NavbarViewModel extends ChangeNotifier with BaseSingleton {
   List<NavbarModel> get items => _items;
 
   final List<Widget> _views = [
-    const Scaffold(),
+    const TodosView(),
     const Scaffold(),
   ];
 
