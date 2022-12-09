@@ -7,10 +7,19 @@ import 'package:todo_app/features/components/button/auth_button.dart';
 import 'package:todo_app/uikit/button/special_button.dart';
 import 'package:todo_app/uikit/textformfield/default_text_form_field.dart';
 
+import '../common/navbar_view.dart';
 import 'register_view.dart';
 
 class LoginView extends StatelessWidget with BaseSingleton {
   const LoginView({super.key});
+
+  _login(BuildContext context) => Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const NavbarView(),
+        ),
+        (route) => false,
+      );
 
   _goToRegisterPage(BuildContext context) => Navigator.push(
         context,
@@ -106,6 +115,7 @@ class LoginView extends StatelessWidget with BaseSingleton {
       borderRadius: context.borderRadius4x,
       isHasIcon: isHasIcon,
       icon: Icons.login,
+      onTap: () => _login(context),
     );
   }
 

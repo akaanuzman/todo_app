@@ -14,13 +14,17 @@ class RegisterView extends StatelessWidget with BaseSingleton {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: FadeInLeft(
-          child: Text(AppLocalizations.of(context)!.registerAppBar),
-        ),
+        title: _appBarTitle(context),
       ),
       body: FadeInRight(
         child: _body(context),
       ),
+    );
+  }
+
+  FadeInLeft _appBarTitle(BuildContext context) {
+    return FadeInLeft(
+      child: Text(AppLocalizations.of(context)!.registerAppBar),
     );
   }
 

@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'core/base/base_singleton.dart';
+import 'core/constants/app_constants.dart';
 import 'products/views/auth/login_view.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  AppConstants constants = AppConstants.instance;
+
+  runApp(
+    MultiProvider(
+      providers: constants.providers,
+      child: const MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget with BaseSingleton {
   const MyApp({super.key});
