@@ -18,5 +18,6 @@
     "registerSuccessfulContent": "You registered in successful!",
     "todosAppBar": "My Todos",
     "searchTodo": "Search todo",
-    "addTodo": "Add Todo"
+    "addTodo": "Add Todo",
+    "doneTodosAppBar": "Done Todos"
 }

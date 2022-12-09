@@ -20,7 +20,7 @@ class NavbarView extends StatelessWidget with BaseSingleton {
           floatingActionButton: _fabButton(context),
           // TODO: Add my core structure
           floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
+              FloatingActionButtonLocation.miniCenterDocked,
         );
       },
     );
@@ -36,8 +36,8 @@ class NavbarView extends StatelessWidget with BaseSingleton {
       );
 
   Widget _navBarItems(BuildContext context, NavbarViewModel provider) {
-    double selectedIconSize = 28;
-    double unselectedIconSize = 24;
+    double selectedIconSize = 32;
+    double unselectedIconSize = 28;
     return FadeInLeft(
       child: BottomNavigationBar(
         selectedIconTheme: IconThemeData(
