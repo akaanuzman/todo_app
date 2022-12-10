@@ -27,5 +27,10 @@
     "areYouSure": "Are you sure?",
     "logoutAlertContent": "You will be logged out of your session.\nAre u sure?",
     "yesButton": "YES",
-    "noButton": "NO"
+    "noButton": "NO",
+    "addTodoTitle": "Tell us what do you do?",
+    "addTodoSubtitle": "This could be doing a homework or washing the dishes etc.",
+    "todoTitleLabel": "Todo Title",
+    "todoSubtitleLabel": "Todo Subtitle",
+    "addNewTodoButton": "Add new todo"
 }

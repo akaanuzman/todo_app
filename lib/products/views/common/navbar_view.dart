@@ -6,9 +6,17 @@ import '../../../core/base/base_singleton.dart';
 import '../../../core/extensions/ui_extensions.dart';
 import '../../../uikit/decoration/special_container_decoration.dart';
 import '../../viewmodels/navbar_view_model.dart';
+import '../home/add_todo_view.dart';
 
 class NavbarView extends StatelessWidget with BaseSingleton {
   const NavbarView({super.key});
+
+  _goToAddTodoPage(BuildContext context) => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const AddTodoView(),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +68,7 @@ class NavbarView extends StatelessWidget with BaseSingleton {
   FloatingActionButton _fabButton(BuildContext context) {
     return FloatingActionButton(
       tooltip: AppLocalizations.of(context)!.addTodo,
-      onPressed: () {},
+      onPressed: () => _goToAddTodoPage(context),
       child: icons.addTodo,
     );
   }
