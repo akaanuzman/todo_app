@@ -1,8 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:todo_app/core/base/base_singleton.dart';
-import 'package:todo_app/core/extensions/ui_extensions.dart';
+import '../../../core/base/base_singleton.dart';
+import '../../../core/extensions/ui_extensions.dart';
 
 import '../../../uikit/button/special_button.dart';
 import '../../../uikit/textformfield/default_text_form_field.dart';

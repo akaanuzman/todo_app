@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'core/base/base_singleton.dart';
 import 'core/constants/app_constants.dart';
 import 'products/views/auth/login_view.dart';

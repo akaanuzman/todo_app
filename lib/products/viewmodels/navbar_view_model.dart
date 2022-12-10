@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/products/views/home/done_todos_view.dart';
-import 'package:todo_app/products/views/home/profile_view.dart';
-import 'package:todo_app/products/views/home/todos_view.dart';
+import '../views/home/done_todos_view.dart';
+import '../views/home/profile_view.dart';
+import '../views/home/todos_view.dart';
 import '../../core/base/base_singleton.dart';
 import '../models/navbar_model.dart';
 

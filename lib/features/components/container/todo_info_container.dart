@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:todo_app/core/base/base_singleton.dart';
-import 'package:todo_app/core/extensions/ui_extensions.dart';
+import '../../../core/base/base_singleton.dart';
+import '../../../core/extensions/ui_extensions.dart';
 
 import '../../../uikit/decoration/special_container_decoration.dart';
 

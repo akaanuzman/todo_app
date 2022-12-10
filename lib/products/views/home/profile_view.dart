@@ -2,11 +2,11 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/core/base/base_singleton.dart';
-import 'package:todo_app/core/extensions/ui_extensions.dart';
-import 'package:todo_app/features/components/container/todo_info_container.dart';
-import 'package:todo_app/uikit/button/special_button.dart';
-import 'package:todo_app/uikit/decoration/special_container_decoration.dart';
+import '../../../core/base/base_singleton.dart';
+import '../../../core/extensions/ui_extensions.dart';
+import '../../../features/components/container/todo_info_container.dart';
+import '../../../uikit/button/special_button.dart';
+import '../../../uikit/decoration/special_container_decoration.dart';
 
 import '../../../core/enums/alert_enum.dart';
 import '../../viewmodels/navbar_view_model.dart';
