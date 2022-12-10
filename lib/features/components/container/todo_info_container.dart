@@ -28,7 +28,7 @@ class TodoInfoContainer extends StatelessWidget with BaseSingleton {
       padding: context.padding2x,
       decoration: SpecialContainerDecoration(
         context: context,
-        color: colors.grey3,
+        color: colors.grey1,
       ),
       child: Column(
         children: [

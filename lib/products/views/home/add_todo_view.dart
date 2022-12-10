@@ -114,7 +114,7 @@ class AddTodoView extends StatelessWidget with BaseSingleton {
     bool filled = true;
     return DefaultTextFormField(
       filled: filled,
-      fillColor: colors.grey3,
+      fillColor: colors.grey1,
       context: context,
       labelText: AppLocalizations.of(context)!.todoTitleLabel,
     );
@@ -124,7 +124,7 @@ class AddTodoView extends StatelessWidget with BaseSingleton {
     bool filled = true;
     return DefaultTextFormField(
       filled: filled,
-      fillColor: colors.grey3,
+      fillColor: colors.grey1,
       context: context,
       labelText: AppLocalizations.of(context)!.todoSubtitleLabel,
     );

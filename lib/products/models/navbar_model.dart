@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/core/extensions/ui_extensions.dart';
+import 'package:todo_app/core/utils/navigation_service.dart';
 
 class NavbarModel extends BottomNavigationBarItem {
   NavbarModel({
@@ -7,9 +9,21 @@ class NavbarModel extends BottomNavigationBarItem {
     required String label,
   }) : super(
           icon: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+            padding: _padding,
             child: Icon(icon),
           ),
           label: label,
         );
+
+  static EdgeInsets get _padding {
+    var context = NavigationService.navigatorKey.currentContext!;
+    double val3x = context.val3x;
+    double val1x = context.val1x;
+    return EdgeInsets.fromLTRB(
+      val3x,
+      val3x,
+      val3x,
+      val1x,
+    );
+  }
 }
