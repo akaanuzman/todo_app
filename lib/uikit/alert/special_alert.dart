@@ -43,7 +43,7 @@ class SpecialAlert extends StatelessWidget with BaseSingleton {
       actionsAlignment: MainAxisAlignment.center,
       actions: [
         if (isHasActions) ...[
-          FadeInUp(
+          FadeInRight(
             child: ElevatedButton(
               onPressed: secondActionOnTap ??
                   () {
@@ -57,7 +57,7 @@ class SpecialAlert extends StatelessWidget with BaseSingleton {
               child: Text(secondButtonLabel ?? "null_value"),
             ),
           ),
-          FadeInUp(
+          FadeInRight(
             child: SpecialButton(
               onTap: onTap ??
                   () {
@@ -75,7 +75,7 @@ class SpecialAlert extends StatelessWidget with BaseSingleton {
   }
 
   Widget _title(BuildContext context) {
-    return FadeInDown(
+    return FadeInLeft(
       child: Container(
         alignment: Alignment.center,
         padding: context.padding4x,
@@ -107,7 +107,7 @@ class SpecialAlert extends StatelessWidget with BaseSingleton {
   Padding _content(BuildContext context) {
     return Padding(
       padding: context.paddingHorizontal2x,
-      child: FadeInUp(
+      child: FadeInLeft(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -139,7 +139,7 @@ class SpecialAlert extends StatelessWidget with BaseSingleton {
   }
 
   Widget _onlyOneAction(BuildContext context) {
-    return FadeInUp(
+    return FadeInLeft(
       child: SpecialButton(
         onTap: onTap ??
             () {

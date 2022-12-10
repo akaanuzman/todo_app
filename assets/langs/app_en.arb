@@ -19,5 +19,13 @@
     "todosAppBar": "My Todos",
     "searchTodo": "Search todo",
     "addTodo": "Add Todo",
-    "doneTodosAppBar": "Done Todos"
+    "doneTodosAppBar": "Done Todos",
+    "myProfile": "My Profile",
+    "myDetails": "My Details",
+    "logoutButton": "Logout",
+    "seeAllButton": "See All",
+    "areYouSure": "Are you sure?",
+    "logoutAlertContent": "You will be logged out of your session.\nAre u sure?",
+    "yesButton": "YES",
+    "noButton": "NO"
 }

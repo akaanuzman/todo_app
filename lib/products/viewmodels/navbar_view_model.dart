@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/products/views/home/done_todos_view.dart';
+import 'package:todo_app/products/views/home/profile_view.dart';
 import 'package:todo_app/products/views/home/todos_view.dart';
 import '../../core/base/base_singleton.dart';
 import '../models/navbar_model.dart';
@@ -19,7 +20,7 @@ class NavbarViewModel extends ChangeNotifier with BaseSingleton {
     NavbarModel(
       icon: Icons.person,
       label: "Profile",
-    )
+    ),
   ];
 
   List<NavbarModel> get items => _items;
@@ -27,7 +28,7 @@ class NavbarViewModel extends ChangeNotifier with BaseSingleton {
   final List<Widget> _views = [
     const TodosView(),
     const DoneTodosView(),
-    const Scaffold()
+    const ProfileView()
   ];
 
   List<Widget> get views => _views;
