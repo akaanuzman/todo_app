@@ -81,7 +81,6 @@ class AuthViewModel with BaseSingleton {
               "email": email,
             },
           );
-          print(response.user!.uid);
         } catch (err) {
           uiGlobals.showAlertDialog(
             context: context,

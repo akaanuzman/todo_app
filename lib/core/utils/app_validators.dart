@@ -51,20 +51,20 @@ class AppValidators {
     return null;
   }
 
-  String? titleCheck(String? content) {
-    if (content == null || content.isEmpty) {
+  String? titleCheck(String? title) {
+    if (title == null || title.isEmpty) {
       return 'Please enter a title!';
-    } else if(content.length < 10 ){
-      return 'Your title must be longer than 10 char.';
+    } else if(title.length < 5 ){
+      return 'Your title must be longer than 5 char.';
     }
     return null;
   }
 
-  String? contentCheck(String? content) {
-    if (content == null || content.isEmpty) {
-      return 'Please enter a content!';
-    } else if (content.length < 20) {
-      return 'Your content must be longer than 20 char.';
+  String? subtitleCheck(String? subtitle) {
+    if (subtitle == null || subtitle.isEmpty) {
+      return 'Please enter a subtitle!';
+    } else if (subtitle.length < 10) {
+      return 'Your subtitle must be longer than 10 char.';
     }
     return null;
   }

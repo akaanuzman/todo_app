@@ -38,5 +38,6 @@
     "okButton": "OK",
     "loginFailed": "Login Failed!",
     "loginSuccess": "Login Successful!",
-    "loginSuccessContent": "You logged in successful."
+    "loginSuccessContent": "You logged in successful.",
+    "addTodoSuccess": "Todo successfully added in your list."
 }

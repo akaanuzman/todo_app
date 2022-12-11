@@ -14,7 +14,7 @@ class NavbarView extends StatelessWidget with BaseSingleton {
   _goToAddTodoPage(BuildContext context) => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const AddTodoView(),
+          builder: (context) => AddTodoView(),
         ),
       );
 

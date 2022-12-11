@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/core/base/base_singleton.dart';
@@ -36,15 +37,19 @@ class SplashView extends StatelessWidget with BaseSingleton {
       child: ListView(
         shrinkWrap: true,
         children: [
-          Icon(
-            Icons.article,
-            size: context.dynamicWidth(0.2),
+          FadeInLeft(
+            child: Icon(
+              Icons.article,
+              size: context.dynamicWidth(0.2),
+            ),
           ),
           context.emptySizedHeightBox1x,
-          Center(
-            child: Text(
-              constants.appTitle,
-              style: context.textTheme.headline5,
+          FadeInRight(
+            child: Center(
+              child: Text(
+                constants.appTitle,
+                style: context.textTheme.headline5,
+              ),
             ),
           )
         ],

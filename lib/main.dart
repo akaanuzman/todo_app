@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/products/views/common/splash_view.dart';
 import 'core/base/base_singleton.dart';
 import 'core/constants/app_constants.dart';
-import 'core/helpers/token.dart';
-import 'products/views/auth/login_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 

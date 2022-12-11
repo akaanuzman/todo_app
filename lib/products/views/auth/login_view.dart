@@ -29,7 +29,6 @@ class LoginView extends StatelessWidget with BaseSingleton {
       );
       if (user != null) {
         btnStateController.update(ButtonState.success);
-        print(user);
         Token.saveToken(token: user.uid, key: "user");
       } else {
         btnStateController.update(ButtonState.failure);
