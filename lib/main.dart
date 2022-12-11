@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'core/base/base_singleton.dart';
 import 'core/constants/app_constants.dart';
 import 'products/views/auth/login_view.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); 
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   AppConstants constants = AppConstants.instance;
-
   runApp(
     MultiProvider(
       providers: constants.providers,

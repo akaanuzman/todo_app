@@ -98,8 +98,8 @@ class ProfileView extends StatelessWidget with BaseSingleton {
             alertEnum: AlertEnum.AREUSURE,
             contentTitle: AppLocalizations.of(context)!.areYouSure,
             contentSubtitle: AppLocalizations.of(context)!.logoutAlertContent,
-            buttonLabel: AppLocalizations.of(context)!.yesButton,
-            secondButtonLabel: AppLocalizations.of(context)!.noButton);
+            buttonLabel: AppLocalizations.of(context)!.noButton,
+            secondButtonLabel: AppLocalizations.of(context)!.yesButton);
       },
       borderRadius: context.borderRadius2x,
       buttonLabel: AppLocalizations.of(context)!.logoutButton,

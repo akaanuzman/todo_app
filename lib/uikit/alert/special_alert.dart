@@ -50,7 +50,7 @@ class SpecialAlert extends StatelessWidget with BaseSingleton {
                     Navigator.pop(context);
                   },
               style: ElevatedButton.styleFrom(
-                backgroundColor: colors.redAccent,
+                backgroundColor: colors.blue,
                 shape: RoundedRectangleBorder(
                     borderRadius: context.borderRadius10x),
               ),
@@ -65,6 +65,7 @@ class SpecialAlert extends StatelessWidget with BaseSingleton {
                   },
               buttonLabel: buttonLabel,
               borderRadius: context.borderRadius10x,
+              bgColor: colors.redAccent,
             ),
           ),
         ] else ...[
