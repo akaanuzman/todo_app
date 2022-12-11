@@ -26,7 +26,7 @@ class NavbarViewModel extends ChangeNotifier with BaseSingleton {
   List<NavbarModel> get items => _items;
 
   final List<Widget> _views = [
-    const TodosView(),
+    TodosView(),
     const DoneTodosView(),
     const ProfileView()
   ];

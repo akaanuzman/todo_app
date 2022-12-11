@@ -11,7 +11,8 @@ import '../../models/todo_model.dart';
 import '../../viewmodels/todo_view_model.dart';
 
 class TodosView extends StatelessWidget with BaseSingleton {
-  const TodosView({super.key});
+  final _todoController = TextEditingController();
+  TodosView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +30,13 @@ class TodosView extends StatelessWidget with BaseSingleton {
             default:
               return Consumer<TodoViewModel>(
                 builder: (context, pv, _) {
+                  bool shrinkWrap = true;
                   return FadeInLeft(
                     child: ListView(
                       padding: context.padding2x,
-                      shrinkWrap: true,
+                      shrinkWrap: shrinkWrap,
                       children: [
-                        _searchField(context),
+                        _searchField(context,pv),
                         context.emptySizedHeightBox3x,
                         _todos(context, pv)
                       ],
@@ -54,7 +56,7 @@ class TodosView extends StatelessWidget with BaseSingleton {
     );
   }
 
-  DefaultTextFormField _searchField(BuildContext context) {
+  DefaultTextFormField _searchField(BuildContext context,TodoViewModel pv) {
     bool filled = true;
     return DefaultTextFormField(
       context: context,
@@ -62,18 +64,26 @@ class TodosView extends StatelessWidget with BaseSingleton {
       fillColor: colors.white,
       labelText: AppLocalizations.of(context)!.searchTodo,
       prefixIcon: icons.search,
+      controller: _todoController,
+      onChanged: pv.searchTodo,
     );
   }
 
   ListView _todos(BuildContext context, TodoViewModel pv) {
     bool shrinkWrap = true;
     int todoLength = pv.todoList.length;
+    if (_todoController.text.isNotEmpty) {
+      todoLength = pv.searchList.length;
+    }
     return ListView.separated(
       shrinkWrap: shrinkWrap,
       // TODO: ADD CORE STRUCTURE
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         TodoModel todo = pv.todoList[index];
+        if (_todoController.text.isNotEmpty) {
+          todo = pv.searchList[index];
+        }
         return _todo(context, todo);
       },
       separatorBuilder: (_, __) => context.emptySizedHeightBox3x,

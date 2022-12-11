@@ -9,6 +9,8 @@ import '../../core/helpers/token.dart';
 class TodoViewModel extends ChangeNotifier {
   List<TodoModel> _todoList = [];
   List<TodoModel> get todoList => _todoList;
+  List<TodoModel> _searchList = [];
+  List<TodoModel> get searchList => _searchList;
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
   Future<void> get getTodos async {
@@ -30,5 +32,21 @@ class TodoViewModel extends ChangeNotifier {
       }
       notifyListeners();
     }
+  }
+
+  void searchTodo(String query) {
+    if (query.isNotEmpty) {
+      final suggestions = todoList.where((todo) {
+        final todoTitle = todo.title?.toLowerCase();
+        final todoSubtitle = todo.subtitle?.toLowerCase();
+        final input = query.toLowerCase();
+        if (todoTitle != null && todoSubtitle != null) {
+          return todoTitle.contains(input) || todoSubtitle.contains(input);
+        }
+        return false;
+      }).toList();
+      _searchList = suggestions;
+    }
+    notifyListeners();
   }
 }
