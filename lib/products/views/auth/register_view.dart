@@ -1,14 +1,26 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:animate_do/animate_do.dart';
+import 'package:async_button/async_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:todo_app/products/viewmodels/auth_view_model.dart';
+import 'package:todo_app/products/views/auth/login_view.dart';
+import 'package:todo_app/uikit/button/special_async_button.dart';
 import '../../../core/base/base_singleton.dart';
+import '../../../core/enums/alert_enum.dart';
 import '../../../core/extensions/ui_extensions.dart';
 
 import '../../../uikit/button/special_button.dart';
 import '../../../uikit/textformfield/default_text_form_field.dart';
+import '../common/navbar_view.dart';
 
 class RegisterView extends StatelessWidget with BaseSingleton {
-  const RegisterView({super.key});
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _passwordV2Controller = TextEditingController();
+  RegisterView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,28 +40,31 @@ class RegisterView extends StatelessWidget with BaseSingleton {
     );
   }
 
-  Center _body(BuildContext context) {
+  Widget _body(BuildContext context) {
     bool shrinkWrap = true;
-    return Center(
-      child: ListView(
-        padding: context.padding4x,
-        shrinkWrap: shrinkWrap,
-        children: [
-          Icon(
-            Icons.person,
-            size: context.dynamicWidth(0.2),
-          ),
-          context.emptySizedHeightBox8x,
-          _titleSubtitle(context),
-          context.emptySizedHeightBox4x,
-          _emailField(context),
-          context.emptySizedHeightBox2x,
-          _passwordField(context),
-          context.emptySizedHeightBox2x,
-          _againPasswordField(context),
-          context.emptySizedHeightBox2x,
-          _signUpButton(context)
-        ],
+    return Form(
+      key: _formKey,
+      child: Center(
+        child: ListView(
+          padding: context.padding4x,
+          shrinkWrap: shrinkWrap,
+          children: [
+            Icon(
+              Icons.person,
+              size: context.dynamicWidth(0.2),
+            ),
+            context.emptySizedHeightBox8x,
+            _titleSubtitle(context),
+            context.emptySizedHeightBox4x,
+            _emailField(context),
+            context.emptySizedHeightBox2x,
+            _passwordField(context),
+            context.emptySizedHeightBox2x,
+            _againPasswordField(context),
+            context.emptySizedHeightBox2x,
+            _signUpButton(context)
+          ],
+        ),
       ),
     );
   }
@@ -80,6 +95,8 @@ class RegisterView extends StatelessWidget with BaseSingleton {
       labelText: AppLocalizations.of(context)!.emailLabel,
       hintText: AppLocalizations.of(context)!.emailHint,
       keyboardType: context.keyboardEmailAddress,
+      controller: _emailController,
+      validator: (email) => validators.emailCheck(email),
     );
   }
 
@@ -95,6 +112,8 @@ class RegisterView extends StatelessWidget with BaseSingleton {
       labelText: AppLocalizations.of(context)!.passwordLabel,
       hintText: AppLocalizations.of(context)!.passwordHint,
       keyboardType: context.keyboardVisiblePassword,
+      controller: _passwordController,
+      validator: (password) => validators.passwordCheck(password),
     );
   }
 
@@ -110,18 +129,53 @@ class RegisterView extends StatelessWidget with BaseSingleton {
       labelText: AppLocalizations.of(context)!.passwordLabel,
       hintText: AppLocalizations.of(context)!.passwordHint2,
       keyboardType: context.keyboardVisiblePassword,
+      controller: _passwordV2Controller,
+      validator: (password) =>
+          validators.twoPasswordCheck(password, _passwordController.text),
     );
   }
 
-  SpecialButton _signUpButton(BuildContext context) {
-    bool isHasIcon = true;
-    return SpecialButton(
+  SpecialAsyncButton _signUpButton(BuildContext context) {
+    return SpecialAsyncButton(
       padding: context.padding2x,
       buttonLabel: AppLocalizations.of(context)!.signUpButton,
       borderRadius: context.borderRadius4x,
-      isHasIcon: isHasIcon,
-      icon: Icons.done,
-      onTap: () {},
+      onTap: (btnStateController) async {
+        btnStateController.update(ButtonState.loading);
+        _formKey.currentState!.save();
+        if (_formKey.currentState!.validate()) {
+          AuthViewModel viewModel = AuthViewModel();
+          final response = await viewModel.createUserWithEmailAndPassword(
+            email: _emailController.text,
+            password: _passwordController.text,
+            context: context,
+          );
+          if (response == null) {
+            btnStateController.update(ButtonState.success);
+            uiGlobals.showAlertDialog(
+              context: context,
+              alertEnum: AlertEnum.SUCCESS,
+              contentTitle: AppLocalizations.of(context)!.registeredSuccess,
+              contentSubtitle:
+                  AppLocalizations.of(context)!.registeredSuccessContent,
+              buttonLabel: AppLocalizations.of(context)!.okButton,
+              onTap: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginView(),
+                  ),
+                  (route) => false,
+                );
+              },
+            );
+          } else {
+            btnStateController.update(ButtonState.failure);
+          }
+        } else {
+          btnStateController.update(ButtonState.failure);
+        }
+      },
     );
   }
 }

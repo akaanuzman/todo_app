@@ -24,7 +24,7 @@ class LoginView extends StatelessWidget with BaseSingleton {
   _goToRegisterPage(BuildContext context) => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const RegisterView(),
+          builder: (context) => RegisterView(),
         ),
       );
 

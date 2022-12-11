@@ -29,7 +29,7 @@ class AppValidators {
 
   String? emailCheck(String? email) {
     if (email == null || email.isEmpty) {
-      return 'Please enter a email';
+      return 'Please enter a email.';
     }
     if (RegExp(r'^(\S+@\S+\.\S+$)').hasMatch(email)) {
       return null;

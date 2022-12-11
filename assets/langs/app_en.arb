@@ -32,5 +32,8 @@
     "addTodoSubtitle": "This could be doing a homework or washing the dishes etc.",
     "todoTitleLabel": "Todo Title",
     "todoSubtitleLabel": "Todo Subtitle",
-    "addNewTodoButton": "Add new todo"
+    "addNewTodoButton": "Add new todo",
+    "registeredSuccess": "Register Successful!",
+    "registeredSuccessContent": "You registered in successful.\nYou are redirected to the login page.",
+    "okButton": "OK"
 }

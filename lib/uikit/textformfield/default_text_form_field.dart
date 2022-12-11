@@ -40,15 +40,17 @@ class DefaultTextFormField extends SpecialTextFormField {
             borderSide: BorderSide(color: MyColors.instance.white),
             borderRadius: context.borderRadius4x,
           ),
-          focusedBorder:  OutlineInputBorder(
+          focusedBorder: OutlineInputBorder(
             borderSide: const BorderSide(),
             borderRadius: context.borderRadius4x,
           ),
           errorBorder: OutlineInputBorder(
             borderSide: BorderSide(color: MyColors.instance.red),
+            borderRadius: context.borderRadius4x,
           ),
-          focusedErrorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(),
+            borderRadius: context.borderRadius4x,
           ),
           controller: controller,
           obscureText: obscureText,
@@ -61,6 +63,5 @@ class DefaultTextFormField extends SpecialTextFormField {
           maxLines: maxLines,
           readOnly: readOnly,
           style: style,
-          
         );
 }
