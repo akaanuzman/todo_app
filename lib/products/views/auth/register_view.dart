@@ -39,15 +39,15 @@ class RegisterView extends StatelessWidget with BaseSingleton {
           contentSubtitle:
               AppLocalizations.of(context)!.registeredSuccessContent,
           buttonLabel: AppLocalizations.of(context)!.okButton,
-          // onTap: () {
-          //   Navigator.pushAndRemoveUntil(
-          //     context,
-          //     MaterialPageRoute(
-          //       builder: (context) => LoginView(),
-          //     ),
-          //     (route) => false,
-          //   );
-          // },
+          onTap: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LoginView(),
+              ),
+              (route) => false,
+            );
+          },
         );
       } else {
         btnStateController.update(ButtonState.failure);

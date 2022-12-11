@@ -24,20 +24,21 @@ class AuthViewModel with BaseSingleton {
         password: password,
       );
       uiGlobals.showAlertDialog(
-          context: context,
-          alertEnum: AlertEnum.SUCCESS,
-          contentTitle: AppLocalizations.of(context)!.loginSuccess,
-          contentSubtitle: AppLocalizations.of(context)!.loginSuccessContent,
-          buttonLabel: AppLocalizations.of(context)!.okButton,
-          onTap: () {
-            return Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const NavbarView(),
-              ),
-              (route) => false,
-            );
-          });
+        context: context,
+        alertEnum: AlertEnum.SUCCESS,
+        contentTitle: AppLocalizations.of(context)!.loginSuccess,
+        contentSubtitle: AppLocalizations.of(context)!.loginSuccessContent,
+        buttonLabel: AppLocalizations.of(context)!.okButton,
+        onTap: () {
+          return Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const NavbarView(),
+            ),
+            (route) => false,
+          );
+        },
+      );
       return response.user;
     } catch (err) {
       String errStr = err.toString();
@@ -80,6 +81,7 @@ class AuthViewModel with BaseSingleton {
               "email": email,
             },
           );
+          print(response.user!.uid);
         } catch (err) {
           uiGlobals.showAlertDialog(
             context: context,

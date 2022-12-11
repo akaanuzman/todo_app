@@ -33,6 +33,8 @@ class ProfileView extends StatelessWidget with BaseSingleton {
   }
 
   _logout(BuildContext context) {
+    final pv = Provider.of<NavbarViewModel>(context, listen: false);
+    pv.currentIndex = 0;
     Token.deleteAll();
     Navigator.pushAndRemoveUntil(
       context,
