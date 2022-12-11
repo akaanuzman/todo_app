@@ -44,5 +44,8 @@
     "editTodoSubtitle": "You can easily make the changes you want to make in your task below.",
     "editTodoAppBar": "Edit Todo",
     "editTodoButton": "Save the changes",
-    "updateTodoSuccess": "Your task has been successfully updated!"
+    "updateTodoSuccess": "Your todo has been successfully updated!",
+    "deleteTodoContent": "Your todo will be completely deleted.\nAre you sure you want to continue?",
+    "deleteTodoSuccess": "Your todo has been successfully deleted.",
+    "haveNotTodo": "You don't have a todo yet, add a new todo right below!"
 }

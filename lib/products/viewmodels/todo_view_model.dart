@@ -69,7 +69,10 @@ class TodoViewModel extends ChangeNotifier with BaseSingleton {
     return 500;
   }
 
-  Future<int> updateTodo({required String todoId,required Map<String,dynamic> obj}) async {
+  Future<int> updateTodo({
+    required String todoId,
+    required Map<String, dynamic> obj,
+  }) async {
     String? userId = await Token.readToken("user");
     if (userId != null) {
       try {
@@ -91,6 +94,28 @@ class TodoViewModel extends ChangeNotifier with BaseSingleton {
       }
     }
     return 500;
+  }
+
+  Future<void> deleteTodo({required String todoId}) async {
+    String? userId = await Token.readToken("user");
+    if (userId != null) {
+      try {
+        CollectionReference userRef = _fireStore.collection("User");
+        var todo = userRef.doc(userId).collection("todos").doc(todoId);
+        await todo.delete();
+        await getTodos;
+        Navigator.pop(context);
+        uiGlobals.showSnackBar(
+          content: AppLocalizations.of(context)!.deleteTodoSuccess,
+          context: context,
+        );
+      } catch (e) {
+        uiGlobals.showSnackBar(
+          content: e.toString(),
+          context: context,
+        );
+      }
+    }
   }
 
   void searchTodo(String query) {

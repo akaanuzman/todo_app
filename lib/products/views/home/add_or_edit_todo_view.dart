@@ -134,6 +134,7 @@ class AddOrEditTodoView extends StatelessWidget with BaseSingleton {
     );
   }
 
+  // TODO: MAKE COMPONENT
   SizedBox _icon(BuildContext context) {
     return SizedBox(
       width: context.dynamicWidth(0.2),

@@ -5,6 +5,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/products/views/home/add_or_edit_todo_view.dart';
 import '../../../core/base/base_singleton.dart';
+import '../../../core/enums/alert_enum.dart';
 import '../../../core/extensions/ui_extensions.dart';
 import '../../../uikit/decoration/special_container_decoration.dart';
 import '../../../uikit/skeleton/skeleton_list.dart';
@@ -15,6 +16,16 @@ import '../../viewmodels/todo_view_model.dart';
 class TodosView extends StatelessWidget with BaseSingleton {
   final _todoController = TextEditingController();
   TodosView({super.key});
+
+  _goToEditTodoPage(BuildContext context, TodoModel todo) => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AddOrEditTodoView(
+            isEdit: true,
+            todoModel: todo,
+          ),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +45,46 @@ class TodosView extends StatelessWidget with BaseSingleton {
                 builder: (context, pv, _) {
                   bool shrinkWrap = true;
                   return FadeInLeft(
-                    child: ListView(
-                      padding: context.padding2x,
-                      shrinkWrap: shrinkWrap,
-                      children: [
-                        _searchField(context, pv),
-                        context.emptySizedHeightBox3x,
-                        _todos(context, pv)
-                      ],
-                    ),
+                    child: pv.todoList.isEmpty
+                        ? Container(
+                            decoration:
+                                SpecialContainerDecoration(context: context),
+                            padding: context.padding4x,
+                            margin: context.padding2x,
+                            child: Row(
+                              children: [
+                                // TODO: MAKE COMPONENT
+                                SizedBox(
+                                  width: context.dynamicWidth(0.2),
+                                  height: context.dynamicWidth(0.2),
+                                  child: CircleAvatar(
+                                    child: Icon(
+                                      Icons.mood,
+                                      size: context.dynamicWidth(0.15),
+                                    ),
+                                  ),
+                                ),
+                                context.emptySizedWidthBox3x,
+                                Expanded(
+                                  child: Text(
+                                    AppLocalizations.of(context)!.haveNotTodo,
+                                    textAlign: context.taCenter,
+                                    style: context.textTheme.subtitle1!
+                                        .copyWith(fontWeight: context.fw700),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : ListView(
+                            padding: context.padding2x,
+                            shrinkWrap: shrinkWrap,
+                            children: [
+                              _searchField(context, pv),
+                              context.emptySizedHeightBox3x,
+                              _todos(context, pv)
+                            ],
+                          ),
                   );
                 },
               );
@@ -71,7 +113,7 @@ class TodosView extends StatelessWidget with BaseSingleton {
     );
   }
 
-  ListView _todos(BuildContext context, TodoViewModel pv) {
+  Widget _todos(BuildContext context, TodoViewModel pv) {
     bool shrinkWrap = true;
     int todoLength = pv.todoList.length;
     if (_todoController.text.isNotEmpty) {
@@ -86,14 +128,14 @@ class TodosView extends StatelessWidget with BaseSingleton {
         if (_todoController.text.isNotEmpty) {
           todo = pv.searchList[index];
         }
-        return _todo(context, todo);
+        return _todo(context, todo, pv);
       },
       separatorBuilder: (_, __) => context.emptySizedHeightBox3x,
       itemCount: todoLength,
     );
   }
 
-  Widget _todo(BuildContext context, TodoModel todo) {
+  Widget _todo(BuildContext context, TodoModel todo, TodoViewModel pv) {
     String title = "${todo.title}";
     String subtitle = "${todo.subtitle}";
     return Slidable(
@@ -101,23 +143,25 @@ class TodosView extends StatelessWidget with BaseSingleton {
         motion: const StretchMotion(),
         children: [
           SlidableAction(
-            onPressed: (context) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddOrEditTodoView(
-                    isEdit: true,
-                    todoModel: todo,
-                  ),
-                ),
-              );
-            },
+            onPressed: (context) => _goToEditTodoPage(context, todo),
             backgroundColor: colors.blueAccent,
             foregroundColor: colors.white,
             icon: Icons.edit,
           ),
           SlidableAction(
-            onPressed: (context) {},
+            onPressed: (context) {
+              uiGlobals.showAlertDialog(
+                  context: context,
+                  alertEnum: AlertEnum.AREUSURE,
+                  contentTitle: AppLocalizations.of(context)!.areYouSure,
+                  contentSubtitle:
+                      AppLocalizations.of(context)!.deleteTodoContent,
+                  buttonLabel: AppLocalizations.of(context)!.noButton,
+                  secondButtonLabel: AppLocalizations.of(context)!.yesButton,
+                  secondActionOnTap: () async {
+                    await pv.deleteTodo(todoId: "${todo.id}");
+                  });
+            },
             backgroundColor: colors.redAccent,
             foregroundColor: colors.white,
             icon: Icons.delete,
