@@ -1,25 +1,57 @@
 // ignore_for_file: use_build_context_synchronously
-
-import 'package:async_button/async_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/core/base/base_singleton.dart';
 import 'package:todo_app/core/enums/alert_enum.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:todo_app/core/utils/navigation_service.dart';
+
+import '../views/common/navbar_view.dart';
 
 class AuthViewModel with BaseSingleton {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+  final BuildContext context = NavigationService.navigatorKey.currentContext!;
 
-  Future<void> signInWithEmailAndPassword({
+  Future<User?> signInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
-    await _firebaseAuth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      var response = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      uiGlobals.showAlertDialog(
+          context: context,
+          alertEnum: AlertEnum.SUCCESS,
+          contentTitle: AppLocalizations.of(context)!.loginSuccess,
+          contentSubtitle: AppLocalizations.of(context)!.loginSuccessContent,
+          buttonLabel: AppLocalizations.of(context)!.okButton,
+          onTap: () {
+            return Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const NavbarView(),
+              ),
+              (route) => false,
+            );
+          });
+      return response.user;
+    } catch (err) {
+      String errStr = err.toString();
+      int startIndex = errStr.indexOf("]") + 1;
+      String errMessage = errStr.substring(startIndex, errStr.length - 1);
+      uiGlobals.showAlertDialog(
+        context: context,
+        alertEnum: AlertEnum.ERROR,
+        contentTitle: AppLocalizations.of(context)!.loginFailed,
+        contentSubtitle: errMessage.toString(),
+        buttonLabel: AppLocalizations.of(context)!.okButton,
+      );
+    }
+    return null;
   }
 
   Future<Object?> createUserWithEmailAndPassword({

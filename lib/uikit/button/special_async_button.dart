@@ -1,5 +1,6 @@
 import 'package:async_button/async_button.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app/core/extensions/ui_extensions.dart';
 
 import '../../core/base/base_singleton.dart';
 
@@ -11,6 +12,8 @@ class SpecialAsyncButton extends StatelessWidget with BaseSingleton {
   final double? elevation;
   final BorderRadiusGeometry borderRadius;
   final Color? buttonLabelColor;
+  final bool isHasIcon;
+  final IconData icon;
   SpecialAsyncButton({
     super.key,
     required this.onTap,
@@ -20,6 +23,8 @@ class SpecialAsyncButton extends StatelessWidget with BaseSingleton {
     this.elevation,
     this.borderRadius = BorderRadius.zero,
     this.buttonLabelColor,
+    this.isHasIcon = false,
+    this.icon = Icons.abc,
   });
 
   @override
@@ -71,10 +76,22 @@ class SpecialAsyncButton extends StatelessWidget with BaseSingleton {
           ],
         ),
       ),
-      child: Text(
-        buttonLabel,
-        style: TextStyle(color: buttonLabelColor),
-      ),
+      child: isHasIcon
+          ? Row(
+              mainAxisAlignment: context.mainAxisACenter,
+              children: [
+                Icon(icon),
+                context.emptySizedWidthBox2x,
+                Text(
+                  buttonLabel,
+                  style: TextStyle(color: buttonLabelColor),
+                ),
+              ],
+            )
+          : Text(
+              buttonLabel,
+              style: TextStyle(color: buttonLabelColor),
+            ),
     );
   }
 }

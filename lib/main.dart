@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'core/base/base_singleton.dart';
 import 'core/constants/app_constants.dart';
+import 'core/helpers/token.dart';
 import 'products/views/auth/login_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); 
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget with BaseSingleton {
       localizationsDelegates: constants.localizationsDelegates,
       supportedLocales: constants.supportedLocales,
       navigatorKey: constants.navigatorKey,
-      home: const LoginView(),
+      home: LoginView(),
     );
   }
 }

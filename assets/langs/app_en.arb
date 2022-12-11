@@ -35,5 +35,8 @@
     "addNewTodoButton": "Add new todo",
     "registeredSuccess": "Register Successful!",
     "registeredSuccessContent": "You registered in successful.\nYou are redirected to the login page.",
-    "okButton": "OK"
+    "okButton": "OK",
+    "loginFailed": "Login Failed!",
+    "loginSuccess": "Login Successful!",
+    "loginSuccessContent": "You logged in successful."
 }

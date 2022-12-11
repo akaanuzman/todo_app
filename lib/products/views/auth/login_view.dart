@@ -1,25 +1,42 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:async_button/async_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:todo_app/products/viewmodels/auth_view_model.dart';
+import 'package:todo_app/uikit/button/special_async_button.dart';
 import '../../../core/base/base_singleton.dart';
 import '../../../core/extensions/ui_extensions.dart';
+import '../../../core/helpers/token.dart';
 import '../../../features/components/button/auth_button.dart';
-import '../../../uikit/button/special_button.dart';
 import '../../../uikit/textformfield/default_text_form_field.dart';
-
-import '../common/navbar_view.dart';
 import 'register_view.dart';
 
 class LoginView extends StatelessWidget with BaseSingleton {
-  const LoginView({super.key});
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  LoginView({super.key});
 
-  _login(BuildContext context) => Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const NavbarView(),
-        ),
-        (route) => false,
+  _login(AsyncButtonStateController btnStateController,
+      BuildContext context) async {
+    btnStateController.update(ButtonState.loading);
+    _formKey.currentState!.save();
+    if (_formKey.currentState!.validate()) {
+      AuthViewModel viewModel = AuthViewModel();
+      var user = await viewModel.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
       );
+      if (user != null) {
+        btnStateController.update(ButtonState.success);
+        Token.saveToken(token: user.uid, key: "user");
+      } else {
+        btnStateController.update(ButtonState.failure);
+      }
+    } else {
+      btnStateController.update(ButtonState.failure);
+    }
+  }
 
   _goToRegisterPage(BuildContext context) => Navigator.push(
         context,
@@ -31,13 +48,16 @@ class LoginView extends StatelessWidget with BaseSingleton {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FadeInRight(
-        child: _body(context),
+      body: Form(
+        key: _formKey,
+        child: FadeInRight(
+          child: _body(context),
+        ),
       ),
     );
   }
 
-  Center _body(BuildContext context) {
+  Widget _body(BuildContext context) {
     bool shrinkWrap = true;
     return Center(
       child: ListView(
@@ -90,6 +110,8 @@ class LoginView extends StatelessWidget with BaseSingleton {
       prefixIcon: icons.email,
       labelText: AppLocalizations.of(context)!.emailLabel,
       keyboardType: context.keyboardEmailAddress,
+      controller: _emailController,
+      validator: (email) => validators.emailCheck(email),
     );
   }
 
@@ -104,20 +126,35 @@ class LoginView extends StatelessWidget with BaseSingleton {
       prefixIcon: icons.lock,
       labelText: AppLocalizations.of(context)!.passwordLabel,
       keyboardType: context.keyboardVisiblePassword,
+      controller: _passwordController,
+      validator: (password) => validators.passwordCheck(password),
     );
   }
 
-  SpecialButton _signInButton(BuildContext context) {
+  SpecialAsyncButton _signInButton(BuildContext context) {
     bool isHasIcon = true;
-    return SpecialButton(
-      padding: context.padding2x,
+    return SpecialAsyncButton(
+      onTap: (btnStateController) async =>
+          await _login(btnStateController, context),
       buttonLabel: AppLocalizations.of(context)!.loginButton,
       borderRadius: context.borderRadius4x,
+      padding: context.padding2x,
       isHasIcon: isHasIcon,
       icon: Icons.login,
-      onTap: () => _login(context),
     );
   }
+
+  // SpecialButton _signInButton(BuildContext context) {
+  //   bool isHasIcon = true;
+  //   return SpecialButton(
+  //     padding: context.padding2x,
+  //     buttonLabel: AppLocalizations.of(context)!.loginButton,
+  //     borderRadius: context.borderRadius4x,
+  //     isHasIcon: isHasIcon,
+  //     icon: Icons.login,
+  //     onTap: () => _login(context),
+  //   );
+  // }
 
   Row _authButtons(BuildContext context) {
     return Row(

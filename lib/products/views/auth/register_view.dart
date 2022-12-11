@@ -10,10 +10,7 @@ import 'package:todo_app/uikit/button/special_async_button.dart';
 import '../../../core/base/base_singleton.dart';
 import '../../../core/enums/alert_enum.dart';
 import '../../../core/extensions/ui_extensions.dart';
-
-import '../../../uikit/button/special_button.dart';
 import '../../../uikit/textformfield/default_text_form_field.dart';
-import '../common/navbar_view.dart';
 
 class RegisterView extends StatelessWidget with BaseSingleton {
   final _formKey = GlobalKey<FormState>();
@@ -21,6 +18,44 @@ class RegisterView extends StatelessWidget with BaseSingleton {
   final _passwordController = TextEditingController();
   final _passwordV2Controller = TextEditingController();
   RegisterView({super.key});
+
+  Future<void> _registerOpretions(AsyncButtonStateController btnStateController,
+      BuildContext context) async {
+    btnStateController.update(ButtonState.loading);
+    _formKey.currentState!.save();
+    if (_formKey.currentState!.validate()) {
+      AuthViewModel viewModel = AuthViewModel();
+      final response = await viewModel.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+        context: context,
+      );
+      if (response == null) {
+        btnStateController.update(ButtonState.success);
+        uiGlobals.showAlertDialog(
+          context: context,
+          alertEnum: AlertEnum.SUCCESS,
+          contentTitle: AppLocalizations.of(context)!.registeredSuccess,
+          contentSubtitle:
+              AppLocalizations.of(context)!.registeredSuccessContent,
+          buttonLabel: AppLocalizations.of(context)!.okButton,
+          // onTap: () {
+          //   Navigator.pushAndRemoveUntil(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (context) => LoginView(),
+          //     ),
+          //     (route) => false,
+          //   );
+          // },
+        );
+      } else {
+        btnStateController.update(ButtonState.failure);
+      }
+    } else {
+      btnStateController.update(ButtonState.failure);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,42 +175,10 @@ class RegisterView extends StatelessWidget with BaseSingleton {
       padding: context.padding2x,
       buttonLabel: AppLocalizations.of(context)!.signUpButton,
       borderRadius: context.borderRadius4x,
-      onTap: (btnStateController) async {
-        btnStateController.update(ButtonState.loading);
-        _formKey.currentState!.save();
-        if (_formKey.currentState!.validate()) {
-          AuthViewModel viewModel = AuthViewModel();
-          final response = await viewModel.createUserWithEmailAndPassword(
-            email: _emailController.text,
-            password: _passwordController.text,
-            context: context,
-          );
-          if (response == null) {
-            btnStateController.update(ButtonState.success);
-            uiGlobals.showAlertDialog(
-              context: context,
-              alertEnum: AlertEnum.SUCCESS,
-              contentTitle: AppLocalizations.of(context)!.registeredSuccess,
-              contentSubtitle:
-                  AppLocalizations.of(context)!.registeredSuccessContent,
-              buttonLabel: AppLocalizations.of(context)!.okButton,
-              onTap: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const LoginView(),
-                  ),
-                  (route) => false,
-                );
-              },
-            );
-          } else {
-            btnStateController.update(ButtonState.failure);
-          }
-        } else {
-          btnStateController.update(ButtonState.failure);
-        }
-      },
+      onTap: (btnStateController) async =>
+          await _registerOpretions(btnStateController, context),
+      isHasIcon: true,
+      icon: Icons.person_add,
     );
   }
 }
