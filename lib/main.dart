@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/products/views/common/splash_view.dart';
 import 'core/base/base_singleton.dart';
 import 'core/constants/app_constants.dart';
 import 'core/helpers/token.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget with BaseSingleton {
       localizationsDelegates: constants.localizationsDelegates,
       supportedLocales: constants.supportedLocales,
       navigatorKey: constants.navigatorKey,
-      home: LoginView(),
+      home: SplashView(),
     );
   }
 }

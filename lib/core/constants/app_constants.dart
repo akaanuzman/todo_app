@@ -1,6 +1,7 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:todo_app/products/viewmodels/splash_view_model.dart';
 import '../../products/viewmodels/navbar_view_model.dart';
 
 import '../utils/navigation_service.dart';
@@ -27,7 +28,10 @@ class AppConstants {
   final List<SingleChildWidget> _providers = [
     ChangeNotifierProvider(
       create: (_) => NavbarViewModel(),
-    )
+    ),
+    ChangeNotifierProvider(
+      create: (_) => SplashViewModel(),
+    ),
   ];
 
   List<SingleChildWidget> get providers => _providers;
