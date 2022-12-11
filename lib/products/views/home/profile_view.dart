@@ -4,12 +4,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../../core/base/base_singleton.dart';
 import '../../../core/extensions/ui_extensions.dart';
+import '../../../core/helpers/token.dart';
 import '../../../features/components/container/todo_info_container.dart';
 import '../../../uikit/button/special_button.dart';
 import '../../../uikit/decoration/special_container_decoration.dart';
 
 import '../../../core/enums/alert_enum.dart';
 import '../../viewmodels/navbar_view_model.dart';
+import '../auth/login_view.dart';
 import '../common/navbar_view.dart';
 
 class ProfileView extends StatelessWidget with BaseSingleton {
@@ -25,6 +27,17 @@ class ProfileView extends StatelessWidget with BaseSingleton {
       context,
       MaterialPageRoute(
         builder: (context) => const NavbarView(),
+      ),
+      (route) => false,
+    );
+  }
+
+  _logout(BuildContext context) {
+    Token.deleteAll();
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LoginView(),
       ),
       (route) => false,
     );
@@ -94,12 +107,14 @@ class ProfileView extends StatelessWidget with BaseSingleton {
     return SpecialButton(
       onTap: () {
         uiGlobals.showAlertDialog(
-            context: context,
-            alertEnum: AlertEnum.AREUSURE,
-            contentTitle: AppLocalizations.of(context)!.areYouSure,
-            contentSubtitle: AppLocalizations.of(context)!.logoutAlertContent,
-            buttonLabel: AppLocalizations.of(context)!.noButton,
-            secondButtonLabel: AppLocalizations.of(context)!.yesButton);
+          context: context,
+          alertEnum: AlertEnum.AREUSURE,
+          contentTitle: AppLocalizations.of(context)!.areYouSure,
+          contentSubtitle: AppLocalizations.of(context)!.logoutAlertContent,
+          buttonLabel: AppLocalizations.of(context)!.noButton,
+          secondButtonLabel: AppLocalizations.of(context)!.yesButton,
+          secondActionOnTap: () => _logout(context),
+        );
       },
       borderRadius: context.borderRadius2x,
       buttonLabel: AppLocalizations.of(context)!.logoutButton,
