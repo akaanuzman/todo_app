@@ -11,6 +11,7 @@ import '../../../uikit/decoration/special_container_decoration.dart';
 
 import '../../../core/enums/alert_enum.dart';
 import '../../viewmodels/navbar_view_model.dart';
+import '../../viewmodels/todo_view_model.dart';
 import '../auth/login_view.dart';
 import '../common/navbar_view.dart';
 
@@ -66,16 +67,22 @@ class ProfileView extends StatelessWidget with BaseSingleton {
     return Container(
       decoration: SpecialContainerDecoration(context: context),
       padding: context.padding4x,
-      child: Column(
-        crossAxisAlignment: context.crossAxisAStart,
-        children: [
-          _myDetailsAndLogoutButton(context),
-          context.emptySizedHeightBox3x,
-          _todosContainer(context),
-          context.emptySizedHeightBox3x,
-          _doneTodoContainer(context),
-          context.emptySizedHeightBox3x,
-        ],
+      child: Consumer<TodoViewModel>(
+        builder: (context, pv, _) {
+          int todoLength = pv.todoList.length;
+          return Column(
+            crossAxisAlignment: context.crossAxisAStart,
+            children: [
+              _myDetailsAndLogoutButton(context),
+              context.emptySizedHeightBox3x,
+              context.emptySizedHeightBox3x,
+              _todosContainer(context, todoLength),
+              context.emptySizedHeightBox3x,
+              _doneTodoContainer(context),
+              context.emptySizedHeightBox3x,
+            ],
+          );
+        },
       ),
     );
   }
@@ -125,9 +132,9 @@ class ProfileView extends StatelessWidget with BaseSingleton {
     );
   }
 
-  TodoInfoContainer _todosContainer(BuildContext context) {
+  TodoInfoContainer _todosContainer(BuildContext context, int todoLength) {
     return TodoInfoContainer(
-      title: "You have created x todos.",
+      title: "You have created $todoLength todos.",
       icon: Icons.article,
       onTapSeeAllButton: () => _goToTodoPage(context, 0),
     );

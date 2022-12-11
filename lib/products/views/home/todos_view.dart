@@ -1,7 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/products/views/home/add_or_edit_todo_view.dart';
 import '../../../core/base/base_singleton.dart';
 import '../../../core/extensions/ui_extensions.dart';
 import '../../../uikit/decoration/special_container_decoration.dart';
@@ -36,7 +38,7 @@ class TodosView extends StatelessWidget with BaseSingleton {
                       padding: context.padding2x,
                       shrinkWrap: shrinkWrap,
                       children: [
-                        _searchField(context,pv),
+                        _searchField(context, pv),
                         context.emptySizedHeightBox3x,
                         _todos(context, pv)
                       ],
@@ -56,7 +58,7 @@ class TodosView extends StatelessWidget with BaseSingleton {
     );
   }
 
-  DefaultTextFormField _searchField(BuildContext context,TodoViewModel pv) {
+  DefaultTextFormField _searchField(BuildContext context, TodoViewModel pv) {
     bool filled = true;
     return DefaultTextFormField(
       context: context,
@@ -91,17 +93,52 @@ class TodosView extends StatelessWidget with BaseSingleton {
     );
   }
 
-  Container _todo(BuildContext context, TodoModel todo) {
+  Widget _todo(BuildContext context, TodoModel todo) {
     String title = "${todo.title}";
     String subtitle = "${todo.subtitle}";
-    return Container(
-      padding: context.padding2x,
-      decoration: SpecialContainerDecoration(context: context),
-      child: ListTile(
-        leading: _todoLeading(context),
-        title: _todoTitle(context, title),
-        subtitle: _todoSubtitle(context, subtitle),
-        trailing: icons.right,
+    return Slidable(
+      startActionPane: ActionPane(
+        motion: const StretchMotion(),
+        children: [
+          SlidableAction(
+            onPressed: (context) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddOrEditTodoView(
+                    isEdit: true,
+                    todoModel: todo,
+                  ),
+                ),
+              );
+            },
+            backgroundColor: colors.blueAccent,
+            foregroundColor: colors.white,
+            icon: Icons.edit,
+          ),
+          SlidableAction(
+            onPressed: (context) {},
+            backgroundColor: colors.redAccent,
+            foregroundColor: colors.white,
+            icon: Icons.delete,
+          ),
+          SlidableAction(
+            onPressed: (context) {},
+            backgroundColor: colors.greenAccent4,
+            foregroundColor: colors.white,
+            icon: Icons.done,
+          ),
+        ],
+      ),
+      child: Container(
+        padding: context.padding2x,
+        decoration: SpecialContainerDecoration(context: context),
+        child: ListTile(
+          leading: _todoLeading(context),
+          title: _todoTitle(context, title),
+          subtitle: _todoSubtitle(context, subtitle),
+          trailing: icons.right,
+        ),
       ),
     );
   }

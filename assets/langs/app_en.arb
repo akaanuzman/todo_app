@@ -39,5 +39,10 @@
     "loginFailed": "Login Failed!",
     "loginSuccess": "Login Successful!",
     "loginSuccessContent": "You logged in successful.",
-    "addTodoSuccess": "Todo successfully added in your list."
+    "addTodoSuccess": "Todo successfully added in your list.",
+    "editTodoTitle": "Easily update your task!",
+    "editTodoSubtitle": "You can easily make the changes you want to make in your task below.",
+    "editTodoAppBar": "Edit Todo",
+    "editTodoButton": "Save the changes",
+    "updateTodoSuccess": "Your task has been successfully updated!"
 }

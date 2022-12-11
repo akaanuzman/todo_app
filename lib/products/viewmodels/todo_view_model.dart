@@ -20,9 +20,9 @@ class TodoViewModel extends ChangeNotifier with BaseSingleton {
     String? userId = await Token.readToken("user");
 
     if (userId != null) {
-      CollectionReference userRef = _fireStore.collection("User");
-      var todos = userRef.doc(userId).collection("todos");
       try {
+        CollectionReference userRef = _fireStore.collection("User");
+        var todos = userRef.doc(userId).collection("todos");
         var response = await todos.get();
         _todoList = response.docs
             .map(
@@ -32,8 +32,7 @@ class TodoViewModel extends ChangeNotifier with BaseSingleton {
         _todoList.sort((a, b) {
           if (a.createdAt != null && b.createdAt != null) {
             return b.createdAt!.compareTo(a.createdAt!);
-          }
-          else {
+          } else {
             return b.createdAt!.compareTo(a.createdAt ?? Timestamp.now());
           }
         });
@@ -50,14 +49,38 @@ class TodoViewModel extends ChangeNotifier with BaseSingleton {
     if (userId != null) {
       try {
         CollectionReference userRef = _fireStore.collection("User");
-        var todos = userRef.doc(userId).collection("todos");
-        await todos.add(obj);
+        var todos = userRef.doc(userId).collection("todos").doc(obj["id"]);
+        await todos.set(obj);
         await getTodos;
         uiGlobals.showSnackBar(
           content: AppLocalizations.of(context)!.addTodoSuccess,
           context: context,
         );
         Navigator.pop(context);
+        return 200;
+      } catch (e) {
+        uiGlobals.showSnackBar(
+          content: e.toString(),
+          context: context,
+        );
+        return 400;
+      }
+    }
+    return 500;
+  }
+
+  Future<int> updateTodo({required String todoId,required Map<String,dynamic> obj}) async {
+    String? userId = await Token.readToken("user");
+    if (userId != null) {
+      try {
+        CollectionReference userRef = _fireStore.collection("User");
+        var todo = userRef.doc(userId).collection("todos").doc(todoId);
+        await todo.update(obj);
+        await getTodos;
+        uiGlobals.showSnackBar(
+          content: AppLocalizations.of(context)!.updateTodoSuccess,
+          context: context,
+        );
         return 200;
       } catch (e) {
         uiGlobals.showSnackBar(

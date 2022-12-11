@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget with BaseSingleton {
       localizationsDelegates: constants.localizationsDelegates,
       supportedLocales: constants.supportedLocales,
       navigatorKey: constants.navigatorKey,
-      home: SplashView(),
+      home: const SplashView(),
     );
   }
 }

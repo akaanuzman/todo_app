@@ -6,7 +6,7 @@ import '../../../core/base/base_singleton.dart';
 import '../../../core/extensions/ui_extensions.dart';
 import '../../../uikit/decoration/special_container_decoration.dart';
 import '../../viewmodels/navbar_view_model.dart';
-import '../home/add_todo_view.dart';
+import '../home/add_or_edit_todo_view.dart';
 
 class NavbarView extends StatelessWidget with BaseSingleton {
   const NavbarView({super.key});
@@ -14,7 +14,7 @@ class NavbarView extends StatelessWidget with BaseSingleton {
   _goToAddTodoPage(BuildContext context) => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AddTodoView(),
+          builder: (context) => AddOrEditTodoView(),
         ),
       );
 
