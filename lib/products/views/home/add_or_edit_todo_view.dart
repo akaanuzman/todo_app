@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/features/components/circle_avatar/circle_avatar_inside_icon.dart';
+import '../../../features/components/circle_avatar/circle_avatar_inside_icon.dart';
 import '../../../core/base/base_singleton.dart';
 import '../../../core/extensions/ui_extensions.dart';
 import '../../../uikit/button/special_async_button.dart';

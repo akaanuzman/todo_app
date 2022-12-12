@@ -2,7 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/features/components/container/have_not_todo_container.dart';
+import '../../../features/components/container/have_not_todo_container.dart';
 import '../../models/todo_model.dart';
 import '../../../uikit/skeleton/skeleton_list.dart';
 import '../../../core/base/base_singleton.dart';

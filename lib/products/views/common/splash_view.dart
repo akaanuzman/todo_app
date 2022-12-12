@@ -1,9 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../../core/base/base_singleton.dart';
 import '../../../core/extensions/ui_extensions.dart';
-
 import '../../viewmodels/splash_view_model.dart';
 import '../auth/login_view.dart';
 import 'navbar_view.dart';

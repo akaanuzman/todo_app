@@ -1,8 +1,8 @@
 import 'package:async_button/async_button.dart';
 import 'package:flutter/material.dart';
-import '../../core/extensions/ui_extensions.dart';
 
 import '../../core/base/base_singleton.dart';
+import '../../core/extensions/ui_extensions.dart';
 
 class SpecialAsyncButton extends StatelessWidget with BaseSingleton {
   final Future<void> Function(AsyncButtonStateController) onTap;

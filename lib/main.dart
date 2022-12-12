@@ -1,10 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'products/views/common/splash_view.dart';
+
 import 'core/base/base_singleton.dart';
 import 'core/constants/app_constants.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'products/views/common/splash_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

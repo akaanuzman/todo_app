@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/core/extensions/ui_extensions.dart';
+import '../../../core/extensions/ui_extensions.dart';
 
 import '../../../uikit/decoration/special_container_decoration.dart';
 import '../circle_avatar/circle_avatar_inside_icon.dart';

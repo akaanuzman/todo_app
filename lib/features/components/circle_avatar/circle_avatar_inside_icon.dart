@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/core/extensions/ui_extensions.dart';
+import '../../../core/extensions/ui_extensions.dart';
 
 class CircleAvatarInsideIcon extends StatelessWidget {
   final IconData icon;
