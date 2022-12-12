@@ -2,10 +2,11 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:todo_app/core/base/base_singleton.dart';
 import 'package:todo_app/core/utils/navigation_service.dart';
 import 'package:todo_app/products/models/todo_model.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../../core/helpers/token.dart';
 
 class TodoViewModel extends ChangeNotifier with BaseSingleton {
@@ -101,6 +102,7 @@ class TodoViewModel extends ChangeNotifier with BaseSingleton {
           content: AppLocalizations.of(context)!.updateTodoSuccess,
           context: context,
         );
+        Navigator.pop(context);
         return 200;
       } catch (e) {
         uiGlobals.showSnackBar(

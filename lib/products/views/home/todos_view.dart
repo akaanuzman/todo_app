@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/features/components/container/have_not_todo_container.dart';
 import 'package:todo_app/products/views/home/add_or_edit_todo_view.dart';
 import '../../../core/base/base_singleton.dart';
 import '../../../core/enums/alert_enum.dart';
@@ -29,6 +30,38 @@ class TodosView extends StatelessWidget with BaseSingleton {
         ),
       );
 
+  _deleteTodo(BuildContext context, TodoViewModel pv, TodoModel todo) {
+    uiGlobals.showAlertDialog(
+      context: context,
+      alertEnum: AlertEnum.AREUSURE,
+      contentTitle: AppLocalizations.of(context)!.areYouSure,
+      contentSubtitle: AppLocalizations.of(context)!.deleteTodoContent,
+      buttonLabel: AppLocalizations.of(context)!.noButton,
+      secondButtonLabel: AppLocalizations.of(context)!.yesButton,
+      secondActionOnTap: () async {
+        await pv.deleteTodo(todoId: "${todo.id}");
+        Navigator.pop(context);
+      },
+    );
+  }
+
+  _doneTodo(BuildContext context, TodoViewModel pv, TodoModel todo) {
+    uiGlobals.showAlertDialog(
+      context: context,
+      alertEnum: AlertEnum.AREUSURE,
+      contentTitle: AppLocalizations.of(context)!.areYouSure,
+      contentSubtitle: AppLocalizations.of(context)!.doneTodoContent,
+      buttonLabel: AppLocalizations.of(context)!.noButton,
+      secondButtonLabel: AppLocalizations.of(context)!.yesButton,
+      secondActionOnTap: () async {
+        await pv.updateTodo(
+          todoId: "${todo.id}",
+          obj: {"isDone": true},
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final pv = Provider.of<TodoViewModel>(context, listen: false);
@@ -38,67 +71,48 @@ class TodosView extends StatelessWidget with BaseSingleton {
       ),
       body: FutureBuilder(
         future: pv.getTodos,
-        builder: (_,snapshot) {
+        builder: (_, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
               return SkeletonList();
             default:
-              return Consumer<TodoViewModel>(
-                builder: (context, pv, _) {
-                  bool shrinkWrap = true;
-                  return FadeInLeft(
-                    child: pv.todoList.isEmpty
-                        ? Container(
-                            decoration:
-                                SpecialContainerDecoration(context: context),
-                            padding: context.padding4x,
-                            margin: context.padding2x,
-                            child: Row(
-                              children: [
-                                // TODO: MAKE COMPONENT
-                                SizedBox(
-                                  width: context.dynamicWidth(0.2),
-                                  height: context.dynamicWidth(0.2),
-                                  child: CircleAvatar(
-                                    child: Icon(
-                                      Icons.mood,
-                                      size: context.dynamicWidth(0.15),
-                                    ),
-                                  ),
-                                ),
-                                context.emptySizedWidthBox3x,
-                                Expanded(
-                                  child: Text(
-                                    AppLocalizations.of(context)!.haveNotTodo,
-                                    textAlign: context.taCenter,
-                                    style: context.textTheme.subtitle1!
-                                        .copyWith(fontWeight: context.fw700),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        : ListView(
-                            padding: context.padding2x,
-                            shrinkWrap: shrinkWrap,
-                            children: [
-                              _searchField(context, pv),
-                              context.emptySizedHeightBox3x,
-                              _todos(context, pv)
-                            ],
-                          ),
-                  );
-                },
-              );
+              return _connectionStateIsDone();
           }
         },
       ),
     );
   }
 
+  Consumer<TodoViewModel> _connectionStateIsDone() {
+    return Consumer<TodoViewModel>(
+      builder: (context, pv, _) {
+        bool shrinkWrap = true;
+        Widget body = pv.todoList.isEmpty
+            ? HaveNotTodoContainer(
+                title: AppLocalizations.of(context)!.haveNotTodo)
+            : _body(context, shrinkWrap, pv);
+        return FadeInLeft(
+          child: body,
+        );
+      },
+    );
+  }
+
   FadeInRight _appBarTitle(BuildContext context) {
     return FadeInRight(
       child: Text(AppLocalizations.of(context)!.todosAppBar),
+    );
+  }
+
+  ListView _body(BuildContext context, bool shrinkWrap, TodoViewModel pv) {
+    return ListView(
+      padding: context.padding2x,
+      shrinkWrap: shrinkWrap,
+      children: [
+        _searchField(context, pv),
+        context.emptySizedHeightBox3x,
+        _todos(context, pv)
+      ],
     );
   }
 
@@ -123,8 +137,7 @@ class TodosView extends StatelessWidget with BaseSingleton {
     }
     return ListView.separated(
       shrinkWrap: shrinkWrap,
-      // TODO: ADD CORE STRUCTURE
-      physics: const NeverScrollableScrollPhysics(),
+      physics: context.neverScroll,
       itemBuilder: (context, index) {
         TodoModel todo = pv.todoList[index];
         if (_todoController.text.isNotEmpty) {
@@ -151,42 +164,13 @@ class TodosView extends StatelessWidget with BaseSingleton {
             icon: Icons.edit,
           ),
           SlidableAction(
-            onPressed: (context) {
-              uiGlobals.showAlertDialog(
-                  context: context,
-                  alertEnum: AlertEnum.AREUSURE,
-                  contentTitle: AppLocalizations.of(context)!.areYouSure,
-                  contentSubtitle:
-                      AppLocalizations.of(context)!.deleteTodoContent,
-                  buttonLabel: AppLocalizations.of(context)!.noButton,
-                  secondButtonLabel: AppLocalizations.of(context)!.yesButton,
-                  secondActionOnTap: () async {
-                    await pv.deleteTodo(todoId: "${todo.id}");
-                  });
-            },
+            onPressed: (context) => _deleteTodo(context, pv, todo),
             backgroundColor: colors.redAccent,
             foregroundColor: colors.white,
             icon: Icons.delete,
           ),
           SlidableAction(
-            onPressed: (context) {
-              uiGlobals.showAlertDialog(
-                context: context,
-                alertEnum: AlertEnum.AREUSURE,
-                contentTitle: AppLocalizations.of(context)!.areYouSure,
-                contentSubtitle: AppLocalizations.of(context)!.doneTodoContent,
-                buttonLabel: AppLocalizations.of(context)!.noButton,
-                secondButtonLabel: AppLocalizations.of(context)!.yesButton,
-                secondActionOnTap: () async {
-                  await pv.updateTodo(
-                    todoId: "${todo.id}",
-                    obj: {"isDone": true},
-                  );
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-              );
-            },
+            onPressed: (context) => _doneTodo(context, pv, todo),
             backgroundColor: colors.greenAccent4,
             foregroundColor: colors.white,
             icon: Icons.done,

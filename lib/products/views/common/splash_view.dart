@@ -1,8 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/core/base/base_singleton.dart';
-import 'package:todo_app/core/extensions/ui_extensions.dart';
+import '../../../core/base/base_singleton.dart';
+import '../../../core/extensions/ui_extensions.dart';
 
 import '../../viewmodels/splash_view_model.dart';
 import '../auth/login_view.dart';
@@ -33,26 +33,35 @@ class SplashView extends StatelessWidget with BaseSingleton {
   }
 
   Widget _body(BuildContext context) {
+    bool shrinkWrap = true;
     return Center(
       child: ListView(
-        shrinkWrap: true,
+        shrinkWrap: shrinkWrap,
         children: [
-          FadeInLeft(
-            child: Icon(
-              Icons.article,
-              size: context.dynamicWidth(0.2),
-            ),
-          ),
+          _icon(context),
           context.emptySizedHeightBox1x,
-          FadeInRight(
-            child: Center(
-              child: Text(
-                constants.appTitle,
-                style: context.textTheme.headline5,
-              ),
-            ),
-          )
+          _title(context)
         ],
+      ),
+    );
+  }
+
+  FadeInLeft _icon(BuildContext context) {
+    return FadeInLeft(
+      child: Icon(
+        Icons.article,
+        size: context.dynamicWidth(0.2),
+      ),
+    );
+  }
+
+  FadeInRight _title(BuildContext context) {
+    return FadeInRight(
+      child: Center(
+        child: Text(
+          constants.appTitle,
+          style: context.textTheme.headline5,
+        ),
       ),
     );
   }

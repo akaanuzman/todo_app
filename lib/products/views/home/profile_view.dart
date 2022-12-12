@@ -70,6 +70,8 @@ class ProfileView extends StatelessWidget with BaseSingleton {
       child: Consumer<TodoViewModel>(
         builder: (context, pv, _) {
           int todoLength = pv.todoList.length;
+          int doneTodoLength = pv.doneTodoList.length;
+
           return Column(
             crossAxisAlignment: context.crossAxisAStart,
             children: [
@@ -78,7 +80,7 @@ class ProfileView extends StatelessWidget with BaseSingleton {
               context.emptySizedHeightBox3x,
               _todosContainer(context, todoLength),
               context.emptySizedHeightBox3x,
-              _doneTodoContainer(context),
+              _doneTodoContainer(context,doneTodoLength),
               context.emptySizedHeightBox3x,
             ],
           );
@@ -140,9 +142,9 @@ class ProfileView extends StatelessWidget with BaseSingleton {
     );
   }
 
-  TodoInfoContainer _doneTodoContainer(BuildContext context) {
+  TodoInfoContainer _doneTodoContainer(BuildContext context,int doneTodoLength) {
     return TodoInfoContainer(
-      title: "You have complated x todos.",
+      title: "You have complated $doneTodoLength todos.",
       icon: Icons.task,
       onTapSeeAllButton: () => _goToTodoPage(context, 1),
     );

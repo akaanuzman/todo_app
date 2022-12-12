@@ -2,8 +2,8 @@ import 'package:animate_do/animate_do.dart';
 import 'package:async_button/async_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:todo_app/products/viewmodels/auth_view_model.dart';
-import 'package:todo_app/uikit/button/special_async_button.dart';
+import '../../viewmodels/auth_view_model.dart';
+import '../../../uikit/button/special_async_button.dart';
 import '../../../core/base/base_singleton.dart';
 import '../../../core/extensions/ui_extensions.dart';
 import '../../../core/helpers/token.dart';
@@ -143,18 +143,6 @@ class LoginView extends StatelessWidget with BaseSingleton {
       icon: Icons.login,
     );
   }
-
-  // SpecialButton _signInButton(BuildContext context) {
-  //   bool isHasIcon = true;
-  //   return SpecialButton(
-  //     padding: context.padding2x,
-  //     buttonLabel: AppLocalizations.of(context)!.loginButton,
-  //     borderRadius: context.borderRadius4x,
-  //     isHasIcon: isHasIcon,
-  //     icon: Icons.login,
-  //     onTap: () => _login(context),
-  //   );
-  // }
 
   Row _authButtons(BuildContext context) {
     return Row(

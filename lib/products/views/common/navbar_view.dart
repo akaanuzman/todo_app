@@ -26,9 +26,7 @@ class NavbarView extends StatelessWidget with BaseSingleton {
           body: provider.views.elementAt(provider.currentIndex),
           bottomNavigationBar: _navbar(context, provider),
           floatingActionButton: _fabButton(context),
-          // TODO: Add my core structure
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.miniCenterDocked,
+          floatingActionButtonLocation: context.fabMiniCenterDocked,
         );
       },
     );

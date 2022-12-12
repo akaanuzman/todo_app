@@ -2,8 +2,9 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/products/models/todo_model.dart';
-import 'package:todo_app/uikit/skeleton/skeleton_list.dart';
+import 'package:todo_app/features/components/container/have_not_todo_container.dart';
+import '../../models/todo_model.dart';
+import '../../../uikit/skeleton/skeleton_list.dart';
 import '../../../core/base/base_singleton.dart';
 import '../../../core/extensions/ui_extensions.dart';
 import '../../../uikit/decoration/special_container_decoration.dart';
@@ -32,37 +33,9 @@ class DoneTodosView extends StatelessWidget with BaseSingleton {
                 return Consumer<TodoViewModel>(
                   builder: (context, pv, _) {
                     return pv.doneTodoList.isEmpty
-                        ? Container(
-                            decoration:
-                                SpecialContainerDecoration(context: context),
-                            padding: context.padding4x,
-                            margin: context.padding2x,
-                            child: Row(
-                              children: [
-                                // TODO: MAKE COMPONENT
-                                SizedBox(
-                                  width: context.dynamicWidth(0.2),
-                                  height: context.dynamicWidth(0.2),
-                                  child: CircleAvatar(
-                                    child: Icon(
-                                      Icons.mood,
-                                      size: context.dynamicWidth(0.15),
-                                    ),
-                                  ),
-                                ),
-                                context.emptySizedWidthBox3x,
-                                Expanded(
-                                  child: Text(
-                                    AppLocalizations.of(context)!
-                                        .haveNotDoneTodo,
-                                    textAlign: context.taCenter,
-                                    style: context.textTheme.subtitle1!
-                                        .copyWith(fontWeight: context.fw700),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
+                        ? HaveNotTodoContainer(
+                            title:
+                                AppLocalizations.of(context)!.haveNotDoneTodo)
                         : ListView(
                             padding: context.padding2x,
                             shrinkWrap: true,
@@ -108,8 +81,7 @@ class DoneTodosView extends StatelessWidget with BaseSingleton {
     }
     return ListView.separated(
       shrinkWrap: shrinkWrap,
-      // TODO: ADD CORE STRUCTURE
-      physics: const NeverScrollableScrollPhysics(),
+      physics: context.neverScroll,
       itemBuilder: (context, index) {
         TodoModel todo = pv.doneTodoList[index];
         if (_todoController.text.isNotEmpty) {

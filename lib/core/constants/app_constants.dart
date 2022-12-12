@@ -1,8 +1,8 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:todo_app/products/viewmodels/splash_view_model.dart';
-import 'package:todo_app/products/viewmodels/todo_view_model.dart';
+import '../../products/viewmodels/splash_view_model.dart';
+import '../../products/viewmodels/todo_view_model.dart';
 import '../../products/viewmodels/navbar_view_model.dart';
 
 import '../utils/navigation_service.dart';

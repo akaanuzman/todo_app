@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/core/extensions/ui_extensions.dart';
-import 'package:todo_app/core/utils/navigation_service.dart';
+import '../../core/extensions/ui_extensions.dart';
+import '../../core/utils/navigation_service.dart';
 
 class NavbarModel extends BottomNavigationBarItem {
   NavbarModel({

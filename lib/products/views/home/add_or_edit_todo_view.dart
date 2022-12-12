@@ -4,11 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/core/base/base_singleton.dart';
-import 'package:todo_app/core/extensions/ui_extensions.dart';
-import 'package:todo_app/uikit/button/special_async_button.dart';
-import 'package:todo_app/uikit/decoration/special_container_decoration.dart';
-import 'package:todo_app/uikit/textformfield/default_text_form_field.dart';
+import 'package:todo_app/features/components/circle_avatar/circle_avatar_inside_icon.dart';
+import '../../../core/base/base_singleton.dart';
+import '../../../core/extensions/ui_extensions.dart';
+import '../../../uikit/button/special_async_button.dart';
+import '../../../uikit/decoration/special_container_decoration.dart';
+import '../../../uikit/textformfield/default_text_form_field.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../models/todo_model.dart';
@@ -134,17 +135,9 @@ class AddOrEditTodoView extends StatelessWidget with BaseSingleton {
     );
   }
 
-  // TODO: MAKE COMPONENT
-  SizedBox _icon(BuildContext context) {
-    return SizedBox(
-      width: context.dynamicWidth(0.2),
-      height: context.dynamicWidth(0.2),
-      child: CircleAvatar(
-        child: Icon(
-          isEdit ? Icons.update : Icons.question_mark,
-          size: context.dynamicWidth(0.15),
-        ),
-      ),
+  Widget _icon(BuildContext context) {
+    return CircleAvatarInsideIcon(
+      icon: isEdit ? Icons.update : Icons.question_mark,
     );
   }
 

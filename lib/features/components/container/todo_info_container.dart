@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../../../core/base/base_singleton.dart';
 import '../../../core/extensions/ui_extensions.dart';
-
 import '../../../uikit/decoration/special_container_decoration.dart';
 
 class TodoInfoContainer extends StatelessWidget with BaseSingleton {

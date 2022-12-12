@@ -1,6 +1,6 @@
 import 'package:async_button/async_button.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_app/core/extensions/ui_extensions.dart';
+import '../../core/extensions/ui_extensions.dart';
 
 import '../../core/base/base_singleton.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../../core/base/base_singleton.dart';
 import '../../../core/extensions/ui_extensions.dart';
-
 import '../../../uikit/button/special_button.dart';
 
 class AuthButton extends StatelessWidget with BaseSingleton {
