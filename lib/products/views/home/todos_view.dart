@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -36,7 +38,7 @@ class TodosView extends StatelessWidget with BaseSingleton {
       ),
       body: FutureBuilder(
         future: pv.getTodos,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
+        builder: (_,snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
               return SkeletonList();
@@ -167,7 +169,24 @@ class TodosView extends StatelessWidget with BaseSingleton {
             icon: Icons.delete,
           ),
           SlidableAction(
-            onPressed: (context) {},
+            onPressed: (context) {
+              uiGlobals.showAlertDialog(
+                context: context,
+                alertEnum: AlertEnum.AREUSURE,
+                contentTitle: AppLocalizations.of(context)!.areYouSure,
+                contentSubtitle: AppLocalizations.of(context)!.doneTodoContent,
+                buttonLabel: AppLocalizations.of(context)!.noButton,
+                secondButtonLabel: AppLocalizations.of(context)!.yesButton,
+                secondActionOnTap: () async {
+                  await pv.updateTodo(
+                    todoId: "${todo.id}",
+                    obj: {"isDone": true},
+                  );
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+              );
+            },
             backgroundColor: colors.greenAccent4,
             foregroundColor: colors.white,
             icon: Icons.done,

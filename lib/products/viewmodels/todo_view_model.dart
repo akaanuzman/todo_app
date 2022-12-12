@@ -11,8 +11,12 @@ import '../../core/helpers/token.dart';
 class TodoViewModel extends ChangeNotifier with BaseSingleton {
   List<TodoModel> _todoList = [];
   List<TodoModel> get todoList => _todoList;
+  List<TodoModel> _doneTodoList = [];
+  List<TodoModel> get doneTodoList => _doneTodoList;
   List<TodoModel> _searchList = [];
   List<TodoModel> get searchList => _searchList;
+    List<TodoModel> _doneTodoSearchList = [];
+  List<TodoModel> get doneTodoSearchList => _doneTodoSearchList;
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
   final BuildContext context = NavigationService.navigatorKey.currentContext!;
 
@@ -29,6 +33,19 @@ class TodoViewModel extends ChangeNotifier with BaseSingleton {
               (e) => TodoModel.fromJson(e.data()),
             )
             .toList();
+        _doneTodoList = _todoList.where((element) {
+          return element.isDone!;
+        }).toList();
+        _todoList = _todoList.where((element) {
+          return !element.isDone!;
+        }).toList();
+        _doneTodoList.sort((a, b) {
+          if (a.createdAt != null && b.createdAt != null) {
+            return b.createdAt!.compareTo(a.createdAt!);
+          } else {
+            return b.createdAt!.compareTo(a.createdAt ?? Timestamp.now());
+          }
+        });
         _todoList.sort((a, b) {
           if (a.createdAt != null && b.createdAt != null) {
             return b.createdAt!.compareTo(a.createdAt!);
@@ -130,6 +147,26 @@ class TodoViewModel extends ChangeNotifier with BaseSingleton {
         return false;
       }).toList();
       _searchList = suggestions;
+    }
+    notifyListeners();
+  }
+
+    void searchDoneTodo(String query) {
+   
+    if (query.isNotEmpty) {
+      final suggestions = doneTodoList.where((todo) {
+        final todoTitle = todo.title?.toLowerCase();
+        final todoSubtitle = todo.subtitle?.toLowerCase();
+        final input = query.toLowerCase();
+        if (todoTitle != null && todoSubtitle != null) {
+          return todoTitle.contains(input) || todoSubtitle.contains(input);
+        }
+        return false;
+      }).toList();
+      _doneTodoSearchList = suggestions;
+         for (var  element in _doneTodoSearchList) {
+        print(element.title);
+      }
     }
     notifyListeners();
   }
